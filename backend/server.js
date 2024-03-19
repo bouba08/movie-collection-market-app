@@ -3,11 +3,11 @@ const dotenv = require('dotenv'); // Import dotenv module
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// Load environment variables from .env file
-dotenv.config();
 
-// Middleware
-app.use(express.json());
+dotenv.config();// Load environment variables from .env file
+
+
+app.use(express.json());// Middleware
 
 
 const movieRoutes = require('./api/movieRoutes');// Pass TMDB API key to movie routes
