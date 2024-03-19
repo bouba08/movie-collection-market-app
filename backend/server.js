@@ -1,20 +1,25 @@
-const express = require('express');
-const dotenv = require('dotenv'); // Import dotenv module
+require("dotenv").config()
+
+const express = require("express");
 const app = express();
-const PORT = process.env.PORT || 5000;
+const mongoose = require("mongoose");
+const cors = require("cors");
 
+app.use(cors());
+// Middleware
+app.use(express.json());
 
-dotenv.config();// Load environment variables from .env file
+// Routes
+app.use("/api/movies", require("./routes/movieRoutes"));
 
+// Start server
 
-app.use(express.json());// Middleware
-
-
-const movieRoutes = require('./api/movieRoutes');// Pass TMDB API key to movie routes
-movieRoutes.setApiKey(process.env.TMDB_API_KEY); // Pass TMDB API key to movie routes
-
-app.use('/api/movies', movieRoutes);// Routes
-
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);// Start server
-});
+mongoose.connect(process.env.PORT)
+  .then(() => {
+    app.listen(4000, () => {
+      console.log(`Server is running on port 4000`);
+    });
+  })
+  .catch((error) => {
+    console.log(error);
+  });
