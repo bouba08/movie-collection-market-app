@@ -10,9 +10,32 @@ const getAllMovies = async (req, res) => {
   }
 };
 
+// Get single movie by ID
+const getMovieById = async (req, res) => {
+  
+};
 
+//Add 
+const addMovie = async (req, res) => {
+  
+};
+
+//Update
+const updateMovie = async (req, res) => {
+  
+};
+
+
+//Delete 
+const deleteMovie = async (req, res) => {
+  
+};
 
 
 module.exports = {
     getAllMovies,
+    getMovieById,
+    addMovie,
+    updateMovie,
+    deleteMovie
 }
