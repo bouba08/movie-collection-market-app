@@ -10,7 +10,7 @@ app.use(cors());
 app.use(express.json());
 
 // Routes
-app.use("/api/movies", require("./routes/movieRoutes"));
+app.use("/todos", require("./routes/movieRoutes"));
 
 // Start server
 
