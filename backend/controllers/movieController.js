@@ -7,6 +7,7 @@ const getAllMovies = async (req, res) => {
     res.status(200).json({
       todos:movies
     });
+
   } catch (error) {
     res.status(500).json({ error: 'Internal server error' });
   }
@@ -80,3 +81,4 @@ module.exports = {
   updateMovie,
   deleteMovie
 };
+
