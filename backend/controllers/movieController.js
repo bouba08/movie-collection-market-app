@@ -1,10 +1,13 @@
-const Movie = require('./models/Movie');
+const Movie = require("../models/Movie");
 
 // Get all movies
 const getAllMovies = async (req, res) => {
   try {
     const movies = await Movie.find();
-    res.json(movies);
+    res.status(200).json({
+      todos:movies
+    });
+
   } catch (error) {
     res.status(500).json({ error: 'Internal server error' });
   }
@@ -26,10 +29,20 @@ const getMovieById = async (req, res) => {
 // Add a new movie
 const addMovie = async (req, res) => {
   try {
-    const newMovie = new Movie(req.body);
-    await newMovie.save();
-    res.status(201).json(newMovie);
-  } catch (error) {
+    const { title } = req.body
+    const { type } = req.body
+
+    console.log(title)
+    console.log(type)
+    const newMovie = Movie({
+        title,
+        type
+    });
+
+    const saveMovie = await newMovie.save();
+    res.status(200 ).json(saveMovie);
+  }
+    catch (error) {
     res.status(500).json({ error: 'Internal server error' });
   }
 };
@@ -43,7 +56,8 @@ const updateMovie = async (req, res) => {
     }
     res.json(movie);
   } catch (error) {
-    res.status(500).json({ error: 'Internal server error' });
+    res.status(500)
+    .json({ error: 'Internal server error' });
   }
 };
 
@@ -67,3 +81,4 @@ module.exports = {
   updateMovie,
   deleteMovie
 };
+
