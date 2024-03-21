@@ -1,8 +1,11 @@
-import React from 'react';
-import './CSS/Sidebar.css'
+import React, { useState } from 'react';
+import './CSS/Sidebar.css';
 
-const Sidebar = ({ collection, onFilterChange, onSearch }) => {
+const Sidebar = ({ onFilterChange, onSearch }) => {
+  const [selectedGenre, setSelectedGenre] = useState('');
+
   const handleGenreChange = (genre) => {
+    setSelectedGenre(genre);
     onFilterChange(genre);
   };
 
@@ -11,7 +14,6 @@ const Sidebar = ({ collection, onFilterChange, onSearch }) => {
     onSearch(query);
   };
 
-  // List of all genres
   const genres = [
     "Action",
     "Adventure",
@@ -43,7 +45,11 @@ const Sidebar = ({ collection, onFilterChange, onSearch }) => {
       <div>
         <h4>Genres</h4>
         {genres.map((genre, index) => (
-          <button key={index} onClick={() => handleGenreChange(genre)}>
+          <button 
+            key={index} 
+            onClick={() => handleGenreChange(genre)} 
+            className={selectedGenre === genre ? 'selected' : ''}
+          >
             {genre}
           </button>
         ))}
