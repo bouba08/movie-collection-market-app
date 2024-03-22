@@ -1,13 +1,21 @@
 .movie-detail {
-    margin: 20px;
-    padding: 20px;
-    border: 2px solid #e50914;
-    background-color: #df101071;
-    color: #fff;
-    max-width: 400px;
-  }
-  
-  .movie-detail h2 {
-    color: #e50914;
-    margin-bottom: 15px;
-  }
+  margin: 10px; /* Adjust margin to match MovieCard */
+  padding: 10px; /* Adjust padding to match MovieCard */
+  border: 1px solid #ccc; /* Match border color and thickness with MovieCard */
+  border-radius: 5px;
+  background-color: #f8f8f8; /* Adjust background color */
+  color: #333; /* Adjust text color */
+  max-width: 300px; /* Set a fixed width for the movie detail */
+  height: 400px; /* Set a fixed height for the movie detail */
+  overflow-y: auto; /* Add a vertical scrollbar if content exceeds height */
+}
+
+.movie-detail h2 {
+  color: #e50914;
+  margin-bottom: 10px; /* Adjust margin bottom */
+}
+
+.movie-detail p {
+  margin: 0; /* Remove default margin for paragraphs */
+  padding: 5px; /* Adjust padding for paragraphs */
+}
