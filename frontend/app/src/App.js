@@ -1,9 +1,9 @@
-  import React, { useState, useEffect } from 'react';
-  import MovieCard from './MovieCard';
-  import MovieDetail from './MovieDetail';
-  import Collection from './Pages/Colletion';
-  //import ReactDOM from 'react-dom/client';
-  import './CSS/App.css';
+import React, { useState, useEffect } from 'react';
+import MovieCard from './MovieCard';
+import MovieDetail from './MovieDetail';
+import Collection from './Pages/Colletion';
+//import ReactDOM from 'react-dom/client';
+import './CSS/App.css';
 
 
 
@@ -85,12 +85,23 @@
             </div>
             
           </div>
-          <input
-            type="text"
-            placeholder="Search for a movie..."
-            value={searchTerm}
-            onChange={handleSearchChange}
-            className="search-box"
+          
+        </div>
+        <input
+          type="text"
+          placeholder="Search for a movie..."
+          value={searchTerm}
+          onChange={handleSearchChange}
+          className="search-box"
+        />
+      </nav>
+      <div className="app-container">
+        {selectedMovie && (
+          <MovieDetail
+            movie={selectedMovie}
+            onAddToCollection={handleAddToCollection}
+            onRemoveFromCollection={handleRemoveFromCollection}
+
           />
         </nav>
         <div className="app-container">
@@ -122,4 +133,4 @@
     );
   };
 
-  export default App;
+export default App;
