@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import MovieCard from './MovieCard';
 import MovieDetail from './MovieDetail';
-import Collection from '../src/Pages/Colletion';
+import Collection from './Pages/Colletion';
 //import ReactDOM from 'react-dom/client';
 import './CSS/App.css';
 
@@ -16,7 +16,6 @@ const App = () => {
 
   const handleMovieClick = (movie) => {
     setSelectedMovie(movie);
-    searchTerm("")
   };
 
   const handleSearchChange = (e) => {
@@ -35,20 +34,37 @@ const App = () => {
   const handleRemoveFromCollection = (movie) => {
     setCollection((prevCollection) => prevCollection.filter((item) => item.imdbID !== movie.imdbID));
   };
-  const fetchData = async (movie) => {
-    try {
-      const apiKey = process.env.TMDB_API_KEY;
-      const response = await fetch(`https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${movie}`);
-      const data = await response.json();
-      console.log(data)
-  } catch(error){
-      console.log(error)
-    } 
-  } 
 
   useEffect(() => {
-    fetchData()
-  }, []); // Removed fetchData from the dependency array
+    const fetchData = async () => {
+      try {
+        const apiKey = process.env.REACT_APP_OMDB_API_KEY;
+        const response = await fetch(`http://www.omdbapi.com/?s=${searchTerm}&apikey=${apiKey}&plot=full&type=movie`);
+        const data = await response.json();
+
+        if (data.Search) {
+          const detailedResults = await Promise.all(
+            data.Search.map(async (movie) => {
+              const detailResponse = await fetch(`http://www.omdbapi.com/?i=${movie.imdbID}&apikey=4d5f158f&plot=full`);
+              const detailData = await detailResponse.json();
+              return detailData;
+            })
+          );
+          setSearchResults(detailedResults);
+        } else {
+          setSearchResults([]);
+        }
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    if (searchTerm.trim() !== '') {
+      fetchData();
+    } else {
+      setSearchResults([]);
+    }
+  }, [searchTerm]); // Removed fetchData from the dependency array
 
   return (
     <div>
@@ -67,6 +83,7 @@ const App = () => {
           >
             My Collection
           </div>
+          
         </div>
         <input
           type="text"
@@ -75,7 +92,6 @@ const App = () => {
           onChange={handleSearchChange}
           className="search-box"
         />
-        <button onClick={()=>{handleMovieClick(searchTerm)}}>Submit</button>
       </nav>
       <div className="app-container">
         {selectedMovie && (
