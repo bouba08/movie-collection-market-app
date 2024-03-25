@@ -1,17 +1,26 @@
 import React, { useState } from 'react';
 import './CSS/App.css';
 
-const MovieDetail = ({ movie, onAddToCollection, onRemoveFromCollection }) => {
+const MovieDetail = ({ movie, onAddToCollection, onRemoveFromCollection, onAddToWishlist, onRemoveFromWishlist }) => {
   const [addToCollection, setAddToCollection] = useState(false);
+  const [addToWishlist, setAddToWishlist] = useState(false);
 
-  const handleCheckboxChange = () => {
-    setAddToCollection(!addToCollection);
-
-    // Call the appropriate function based on the checkbox state
-    if (!addToCollection) {
-      onAddToCollection(movie);
-    } else {
-      onRemoveFromCollection(movie);
+  const handleCheckboxChange = (event) => {
+    const { name, checked } = event.target;
+    if (name === 'collection') {
+      setAddToCollection(checked);
+      if (checked) {
+        onAddToCollection(movie);
+      } else {
+        onRemoveFromCollection(movie);
+      }
+    } else if (name === 'wishlist') {
+      setAddToWishlist(checked);
+      if (checked) {
+        onAddToWishlist(movie);
+      } else {
+        onRemoveFromWishlist(movie);
+      }
     }
   };
 
@@ -38,10 +47,21 @@ const MovieDetail = ({ movie, onAddToCollection, onRemoveFromCollection }) => {
         <label>
           <input
             type="checkbox"
+            name="collection"
             checked={addToCollection}
             onChange={handleCheckboxChange}
           />
           Add to Collection
+        </label>
+
+        <label>
+          <input
+            type="checkbox"
+            name="wishlist"
+            checked={addToWishlist}
+            onChange={handleCheckboxChange}
+          />
+          Add to Wishlist
         </label>
       </div>
       <div className="movie-poster">
