@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './CSS/App.css';
+import Trailer from './Trailer';
 
 const MovieDetail = ({ movie, onAddToCollection, onRemoveFromCollection }) => {
   const [addToCollection, setAddToCollection] = useState(false);
@@ -24,6 +25,7 @@ const MovieDetail = ({ movie, onAddToCollection, onRemoveFromCollection }) => {
         <p><strong>Rating:</strong> {movie.imdbRating}</p>
         <p><strong>Plot:</strong> {movie.Plot}</p>
         <p><strong>Box Office:</strong> {movie.BoxOffice}</p>
+        <p><strong>Trailer:</strong> {<Trailer id={movie.imdbID} type={movie.Type}/>}</p>
         <label>
           <input
             type="checkbox"
