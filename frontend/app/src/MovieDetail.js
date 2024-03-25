@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './CSS/App.css';
+import Trailer from './Trailer';
 
 const MovieDetail = ({ movie, onAddToCollection, onRemoveFromCollection, onAddToWishlist, onRemoveFromWishlist }) => {
   const [addToCollection, setAddToCollection] = useState(false);
@@ -31,6 +32,7 @@ const MovieDetail = ({ movie, onAddToCollection, onRemoveFromCollection, onAddTo
         <p><strong>Genre:</strong> {movie.Genre}</p>
         <p><strong>Plot:</strong> {movie.Plot}</p>
         <p><strong>Box Office:</strong> {movie.BoxOffice}</p>
+        <p><strong>Trailer:</strong> {<Trailer id={movie.imdbID} type={movie.Type}/>}</p>
         <p><strong>Awards:</strong> {movie.Awards}</p>
         <p><strong>Age Rating:</strong> {movie.Rated}</p>
         <p><strong>Director(s):</strong> {movie.Director}</p>

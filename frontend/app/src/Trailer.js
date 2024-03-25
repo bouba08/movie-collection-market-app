@@ -1,47 +1,62 @@
-import { useEffect, useState } from "react"
+import React, { useEffect, useState } from "react";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
-const Trailer = (id, type)=>{
+
+const Trailer = ({ id, type }) => {
+  const [trailer, setTrailer] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  const fetchTrailer = async () => {
     
-    const [movie, setMovie] = useState(null)
-    const [shows, setShows] = useState(null)
-
-    const fetchMovie = async ()=>{
-        const response = await fetch(`https://api.kinocheck.de/movies?imdb_id=${id}`)
-        const data = await response.json()
-        console.log(data)
-        setMovie(data) 
+    if(type ==="movie"){
+        type = "movies"
+    } else if(type = "series"){
+        type = "shows"
     }
 
-    const fetchShows = async ()=>{
-        const response = await fetch(`https://api.kinocheck.de/series?imdb_id=${id}`)
-        const data = await response.json()
-        console.log(data)
-        setShows(data) 
+    try {
+      const response = await fetch(
+        `https://api.kinocheck.de/${type}?imdb_id=${id}`
+      );
+      const data = await response.json();
+      setTrailer(data.trailer);
+      setLoading(false);
+    } catch (error) {
+      setError("Error fetching trailer");
+      setLoading(false);
     }
+  };
 
-    useEffect(()=>{
-        fetchMovie()
-        fetchShows()
-    }, [])
+  useEffect(() => {
+    fetchTrailer();
+  }, [id, type]);
 
-    if (type === "movies" && movie){
-        return(
-        <div>
-            <h1>{movie["title"]} Trailer</h1>
-            <a href={`https://www.youtube.com/watch?v=${movie["trailer"]["youtube_video_id"]}`}>
-                <img src={movie["trailer"]["youtube_thumbnail"]}></img>
-            </a>
-        </div>
-        )
-    } else if (type === "series" && shows){
-        return(
-        <div>
-            <h1>{shows["title"]} Trailer</h1>
-            <a href={`https://www.youtube.com/watch?v=${shows["trailer"]["youtube_video_id"]}`}>
-                <img src={shows["trailer"]["youtube_thumbnail"]}></img>
-            </a>
-        </div>
-        )
-    }
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
-}
+  if (error) {
+    return <div>{error}</div>;
+  }
+
+  return (
+    <div>
+      <h1>{trailer ? `"${trailer.title}"` : "N/A"}</h1>
+      {/* {trailer && (
+        <a href={`https://www.youtube.com/watch?v=${trailer.youtube_video_id}`}>
+          <img src={trailer.youtube_thumbnail} alt="Trailer Thumbnail" />
+        </a>
+      )} */}
+      {trailer && (
+        <div className="ratio ratio-4x3">
+        <iframe src={`https://www.youtube.com/embed/${trailer.youtube_video_id}?rel=0`} title="YouTube video" allowFullScreen></iframe>
+      </div>
+
+      
+      )}
+    </div>
+  );
+};
+
+export default Trailer;
