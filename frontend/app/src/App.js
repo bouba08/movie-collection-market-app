@@ -2,16 +2,15 @@ import React, { useState, useEffect } from 'react';
 import MovieCard from './MovieCard';
 import MovieDetail from './MovieDetail';
 import Collection from './Pages/Colletion';
-//import ReactDOM from 'react-dom/client';
+import Wishlist from './Pages/Wishlist'; // Import Wishlist component
 import './CSS/App.css';
-
-
 
 const App = () => {
   const [selectedMovie, setSelectedMovie] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [searchResults, setSearchResults] = useState([]);
   const [collection, setCollection] = useState([]);
+  const [wishlist, setWishlist] = useState([]); // State for wishlist
   const [activeTab, setActiveTab] = useState('search');
 
   const handleMovieClick = (movie) => {
@@ -32,20 +31,36 @@ const App = () => {
   };
 
   const handleRemoveFromCollection = (movie) => {
-    setCollection((prevCollection) => prevCollection.filter((item) => item.imdbID !== movie.imdbID));
+    setCollection((prevCollection) =>
+      prevCollection.filter((item) => item.imdbID !== movie.imdbID)
+    );
+  };
+
+  const handleAddToWishlist = (movie) => { // Handler to add movie to wishlist
+    setWishlist((prevWishlist) => [...prevWishlist, movie]);
+  };
+
+  const handleRemoveFromWishlist = (movie) => { // Handler to remove movie from wishlist
+    setWishlist((prevWishlist) =>
+      prevWishlist.filter((item) => item.imdbID !== movie.imdbID)
+    );
   };
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const apiKey = process.env.REACT_APP_OMDB_API_KEY;
-        const response = await fetch(`http://www.omdbapi.com/?s=${searchTerm}&apikey=${apiKey}&plot=full&type=movie`);
+        const response = await fetch(
+          `http://www.omdbapi.com/?s=${searchTerm}&apikey=${apiKey}&plot=full&type=movie`
+        );
         const data = await response.json();
 
         if (data.Search) {
           const detailedResults = await Promise.all(
             data.Search.map(async (movie) => {
-              const detailResponse = await fetch(`http://www.omdbapi.com/?i=${movie.imdbID}&apikey=4d5f158f&plot=full`);
+              const detailResponse = await fetch(
+                `http://www.omdbapi.com/?i=${movie.imdbID}&apikey=4d5f158f&plot=full`
+              );
               const detailData = await detailResponse.json();
               return detailData;
             })
@@ -69,13 +84,13 @@ const App = () => {
   return (
     <div>
       <nav className="navbar">
-        <div className="nav-logo">Movie App</div>
+        <div className="nav-logo">ArkHIVE</div>
         <div className="nav-tabs">
           <div
             className={`nav-tab ${activeTab === 'search' ? 'active' : ''}`}
             onClick={() => handleTabChange('search')}
           >
-            Search
+            Home
           </div>
           <div
             className={`nav-tab ${activeTab === 'collection' ? 'active' : ''}`}
@@ -83,22 +98,41 @@ const App = () => {
           >
             My Collection
           </div>
-          
+          <div // Tab for Wishlist
+            className={`nav-tab ${activeTab === 'wishlist' ? 'active' : ''}`}
+            onClick={() => handleTabChange('wishlist')}
+          >
+            Wishlist
+          </div>
+          <div
+            className={`nav-tab ${activeTab === 'Market' ? 'active' : ''}`}
+            onClick={() => handleTabChange('Market')}
+          >
+            Market
+          </div>
+          <div
+            className={`nav-tab ${activeTab === 'UserAccount' ? 'active' : ''}`}
+            onClick={() => handleTabChange('UserAccount')}
+          >
+            Profile
+          </div>
         </div>
-        <input
-          type="text"
-          placeholder="Search for a movie..."
-          value={searchTerm}
-          onChange={handleSearchChange}
-          className="search-box"
-        />
       </nav>
+      <input
+        type="text"
+        placeholder="Search for a movie..."
+        value={searchTerm}
+        onChange={handleSearchChange}
+        className="search-box"
+      />
       <div className="app-container">
         {selectedMovie && (
           <MovieDetail
             movie={selectedMovie}
             onAddToCollection={handleAddToCollection}
             onRemoveFromCollection={handleRemoveFromCollection}
+            onAddToWishlist={handleAddToWishlist}
+            onRemoveFromWishlist={handleRemoveFromWishlist}
           />
         )}
         {activeTab === 'search' && (
@@ -116,6 +150,9 @@ const App = () => {
         )}
         {activeTab === 'collection' && (
           <Collection collection={collection} onMovieClick={handleMovieClick} />
+        )}
+        {activeTab === 'wishlist' && ( // Render Wishlist component
+          <Wishlist wishlist={wishlist} onMovieClick={handleMovieClick} />
         )}
       </div>
     </div>

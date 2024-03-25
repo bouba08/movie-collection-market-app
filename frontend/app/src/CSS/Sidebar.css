@@ -1,5 +1,5 @@
 .sidebar {
-    background-color: #333;
+    background-color: black;
     border-radius: 8px;
     padding: 20px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
@@ -22,7 +22,7 @@
     margin-bottom: 10px;
     border: none;
     border-radius: 4px;
-    background-color: #007bff;
+    background-color: red;
     color: #fff;
     font-size: 16px;
     cursor: pointer;
@@ -30,7 +30,7 @@
   }
   
   .sidebar button:hover {
-    background-color: #0056b3;
+    background-color: rgba(255, 0, 0, 0.521);
   }
   
   .sidebar input[type="text"] {
@@ -42,3 +42,33 @@
     background-color: #444;
     color: #ccc;
   }
+  .sidebar div {
+    max-height: 150px;
+    overflow-y: auto;
+  }
+  
+  /* Hide scrollbar for WebKit-based browsers */
+.sidebar div::-webkit-scrollbar {
+  width: 0;
+}
+
+/* Optionally, you can style the track and thumb of the scrollbar */
+.sidebar div::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.sidebar div::-webkit-scrollbar-thumb {
+  background: transparent;
+}
+
+/* Hide scrollbar for Firefox */
+.sidebar div {
+  scrollbar-width: none;
+}
+
+/* Hide scrollbar for Edge */
+@supports (-ms-ime-align:auto) {
+  .sidebar div {
+    scrollbar-width: none;
+  }
+}

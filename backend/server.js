@@ -14,7 +14,7 @@ app.use("/api", require("./routes/movieRoutes"));
 
 // Start server
 
-mongoose.connect(process.env.PORT)
+mongoose.connect(process.env.MONGODB_URI)
   .then(() => {
     app.listen(4000, () => {
       console.log(`Server is running on port 4000`);
