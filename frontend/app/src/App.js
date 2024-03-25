@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import MovieCard from './MovieCard';
 import MovieDetail from './MovieDetail';
 import Collection from './Pages/Colletion';
+import Wishlist from './Pages/Wishlist'; // Import Wishlist component
 import './CSS/App.css';
 
 const App = () => {
@@ -9,6 +10,7 @@ const App = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [searchResults, setSearchResults] = useState([]);
   const [collection, setCollection] = useState([]);
+  const [wishlist, setWishlist] = useState([]); // State for wishlist
   const [activeTab, setActiveTab] = useState('search');
 
   const handleMovieClick = (movie) => {
@@ -31,6 +33,16 @@ const App = () => {
   const handleRemoveFromCollection = (movie) => {
     setCollection((prevCollection) =>
       prevCollection.filter((item) => item.imdbID !== movie.imdbID)
+    );
+  };
+
+  const handleAddToWishlist = (movie) => { // Handler to add movie to wishlist
+    setWishlist((prevWishlist) => [...prevWishlist, movie]);
+  };
+
+  const handleRemoveFromWishlist = (movie) => { // Handler to remove movie from wishlist
+    setWishlist((prevWishlist) =>
+      prevWishlist.filter((item) => item.imdbID !== movie.imdbID)
     );
   };
 
@@ -86,6 +98,12 @@ const App = () => {
           >
             My Collection
           </div>
+          <div // Tab for Wishlist
+            className={`nav-tab ${activeTab === 'wishlist' ? 'active' : ''}`}
+            onClick={() => handleTabChange('wishlist')}
+          >
+            Wishlist
+          </div>
         </div>
       </nav>
       <input
@@ -101,6 +119,8 @@ const App = () => {
             movie={selectedMovie}
             onAddToCollection={handleAddToCollection}
             onRemoveFromCollection={handleRemoveFromCollection}
+            onAddToWishlist={handleAddToWishlist}
+            onRemoveFromWishlist={handleRemoveFromWishlist}
           />
         )}
         {activeTab === 'search' && (
@@ -118,6 +138,9 @@ const App = () => {
         )}
         {activeTab === 'collection' && (
           <Collection collection={collection} onMovieClick={handleMovieClick} />
+        )}
+        {activeTab === 'wishlist' && ( // Render Wishlist component
+          <Wishlist wishlist={wishlist} onMovieClick={handleMovieClick} />
         )}
       </div>
     </div>
