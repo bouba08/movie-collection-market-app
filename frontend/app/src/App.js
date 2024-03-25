@@ -84,13 +84,13 @@ const App = () => {
   return (
     <div>
       <nav className="navbar">
-        <div className="nav-logo">Movie App</div>
+        <div className="nav-logo">ArkHIVE</div>
         <div className="nav-tabs">
           <div
             className={`nav-tab ${activeTab === 'search' ? 'active' : ''}`}
             onClick={() => handleTabChange('search')}
           >
-            Search
+            Home
           </div>
           <div
             className={`nav-tab ${activeTab === 'collection' ? 'active' : ''}`}
@@ -103,6 +103,18 @@ const App = () => {
             onClick={() => handleTabChange('wishlist')}
           >
             Wishlist
+          </div>
+          <div
+            className={`nav-tab ${activeTab === 'Market' ? 'active' : ''}`}
+            onClick={() => handleTabChange('Market')}
+          >
+            Market
+          </div>
+          <div
+            className={`nav-tab ${activeTab === 'UserAccount' ? 'active' : ''}`}
+            onClick={() => handleTabChange('UserAccount')}
+          >
+            Profile
           </div>
         </div>
       </nav>
