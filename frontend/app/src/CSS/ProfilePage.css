@@ -1,0 +1,25 @@
+/* ProfilePage.css */
+.profile-page {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+  }
+  
+  .profile-card {
+    width: 300px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .profile-card h2 {
+    margin-bottom: 10px;
+  }
+  
+  .profile-card img {
+    width: 100%;
+    border-radius: 50%;
+  }
+  

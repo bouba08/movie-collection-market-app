@@ -17,7 +17,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  box-shadow: 64px 128px rgba(0, 0, 0, 0.2); /* Add shadow effect */
+  
 }
 
 .nav-logo {
