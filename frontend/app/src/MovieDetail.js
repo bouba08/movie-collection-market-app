@@ -3,26 +3,27 @@ import './CSS/App.css';
 import Trailer from './Trailer';
 
 const MovieDetail = ({ movie, onAddToCollection, onRemoveFromCollection, onAddToWishlist, onRemoveFromWishlist }) => {
-  const [addToCollection, setAddToCollection] = useState(false);
-  const [addToWishlist, setAddToWishlist] = useState(false);
+  const [isInCollection, setIsInCollection] = useState(false);
+  const [isInWishlist, setIsInWishlist] = useState(false);
 
-  const handleCheckboxChange = (event) => {
-    const { name, checked } = event.target;
-    if (name === 'collection') {
-      setAddToCollection(checked);
-      if (checked) {
-        onAddToCollection(movie);
-      } else {
-        onRemoveFromCollection(movie);
-      }
-    } else if (name === 'wishlist') {
-      setAddToWishlist(checked);
-      if (checked) {
-        onAddToWishlist(movie);
-      } else {
-        onRemoveFromWishlist(movie);
-      }
-    }
+  const handleAddToCollection = () => {
+    setIsInCollection(true);
+    onAddToCollection(movie);
+  };
+
+  const handleRemoveFromCollection = () => {
+    setIsInCollection(false);
+    onRemoveFromCollection(movie);
+  };
+
+  const handleAddToWishlist = () => {
+    setIsInWishlist(true);
+    onAddToWishlist(movie);
+  };
+
+  const handleRemoveFromWishlist = () => {
+    setIsInWishlist(false);
+    onRemoveFromWishlist(movie);
   };
 
   return (
@@ -46,25 +47,19 @@ const MovieDetail = ({ movie, onAddToCollection, onRemoveFromCollection, onAddTo
         ))}
         <p><strong>Cast:</strong> {movie.Actors}</p>
         
-        <label>
-          <input
-            type="checkbox"
-            name="collection"
-            checked={addToCollection}
-            onChange={handleCheckboxChange}
-          />
-          Add to Collection
-        </label>
+        {/* Button to add/remove from collection */}
+        {isInCollection ? (
+          <button onClick={handleRemoveFromCollection}>Remove from Collection</button>
+        ) : (
+          <button onClick={handleAddToCollection}>Add to Collection</button>
+        )}
 
-        <label>
-          <input
-            type="checkbox"
-            name="wishlist"
-            checked={addToWishlist}
-            onChange={handleCheckboxChange}
-          />
-          Add to Wishlist
-        </label>
+        {/* Button to add/remove from wishlist */}
+        {isInWishlist ? (
+          <button onClick={handleRemoveFromWishlist}>Remove from Wishlist</button>
+        ) : (
+          <button onClick={handleAddToWishlist}>Add to Wishlist</button>
+        )}
       </div>
       <div className="movie-poster">
         <img src={movie.Poster} alt={movie.Title} />

@@ -1,8 +1,8 @@
 .movie-card {
   cursor: pointer;
   margin: 10px;
-  width: 200px; /* Set a fixed width for the movie card */
-  height: 300px; /* Set a fixed height for the movie card */
+  width: 500px; /* Set a fixed width for the movie card */
+  height: 500px; /* Set a fixed height for the movie card */
   border: 1px solid #ccc;
   border-radius: 5px;
   overflow: hidden;

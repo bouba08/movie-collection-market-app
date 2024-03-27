@@ -108,14 +108,14 @@ input {
 .movie-detail {
   margin: 20px;
   padding: 20px;
-  border: 2px solid #e50914;
-  background-color: #ffb703;
+  border: 2px solid #363030;
+  background-color: #555147;
   color: #fff;
-  max-width: 400px;
+  max-width: 600px;
 }
 
 .movie-detail h2 {
-  color: #e50914;
+  color: #ffffff;
   margin-bottom: 15px;
 }
 
@@ -127,12 +127,12 @@ input {
 }
 
 .movie-detail {
-  max-width: 400px;
+  max-width: 700px;
 }
 
 .movie-poster img {
   width: 100%;
-  max-width: 300px;
+  max-width: 700px;
   border-radius: 5px;
 }
 
