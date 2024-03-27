@@ -42,11 +42,11 @@ const MovieDetail = ({ movie, onAddToCollection, onRemoveFromCollection, onAddTo
         <p><strong>Runtime:</strong> {movie.Runtime}</p>
         <p><strong>Country:</strong> {movie.Country}</p>
         <p><strong>Released Date:</strong> {movie.Released}</p>
+        <p><strong>Cast:</strong> {movie.Actors}</p>
         {movie.Ratings && movie.Ratings.map((rating, index) => (
           <p key={index}><strong>{rating.Source} Rating:</strong> {rating.Value}</p>
         ))}
-        <p><strong>Cast:</strong> {movie.Actors}</p>
-        
+                
         {/* Button to add/remove from collection */}
         {isInCollection ? (
           <button onClick={handleRemoveFromCollection}>Remove from Collection</button>
