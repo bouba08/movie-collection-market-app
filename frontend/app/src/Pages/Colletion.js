@@ -2,8 +2,10 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import MovieCard from '../MovieCard';
 import Wishlist from './Wishlist';
+import Sidebar from '../Sidebar'; // Corrected import path
 
-const Collection = ({ user, onMovieClick }) => { // Accept user prop
+
+const Collection = ({ user, onMovieClick }) => {
   const [collection, setCollection] = useState([]);
   const [wishlist, setWishlist] = useState([]);
   const [activeTab, setActiveTab] = useState('collection');
@@ -11,7 +13,7 @@ const Collection = ({ user, onMovieClick }) => { // Accept user prop
   useEffect(() => {
     const fetchCollection = async () => {
       try {
-        const response = await axios.get(`/users/${user.id}/movies`); // Use user.id to fetch user's movies
+        const response = await axios.get(`/users/${user.id}/movies`);
         setCollection(response.data);
       } catch (error) {
         console.error('Error fetching collection:', error);
@@ -19,7 +21,7 @@ const Collection = ({ user, onMovieClick }) => { // Accept user prop
     };
 
     fetchCollection();
-  }, [user]); // Include user in dependency array to fetch collection when user changes
+  }, [user]);
 
   const handleTabChange = (tab) => {
     setActiveTab(tab);
@@ -27,7 +29,7 @@ const Collection = ({ user, onMovieClick }) => { // Accept user prop
 
   const handleAddToWishlist = async (movie) => {
     try {
-      await axios.post(`/users/${user.id}/movies`, { movieId: movie.id }); // Use user.id to add movie to user's wishlist
+      await axios.post(`/users/${user.id}/movies`, { movieId: movie.id });
       setWishlist([...wishlist, movie]);
     } catch (error) {
       console.error('Error adding movie to wishlist:', error);
@@ -36,15 +38,22 @@ const Collection = ({ user, onMovieClick }) => { // Accept user prop
 
   const handleRemoveFromWishlist = async (movie) => {
     try {
-      await axios.delete(`/users/${user.id}/movies/${movie.id}`); // Use user.id to remove movie from user's wishlist
+      await axios.delete(`/users/${user.id}/movies/${movie.id}`);
       setWishlist(wishlist.filter((item) => item.id !== movie.id));
     } catch (error) {
       console.error('Error removing movie from wishlist:', error);
     }
   };
 
+  // Handler function for filtering movies by genre or actor/actress
+  const handleFilterChange = (filterValue) => {
+    // Implement filter logic based on the selected genre or search query
+    // Update the collection accordingly
+  };
+
   return (
     <div className="collection-page">
+      <Sidebar onFilterChange={handleFilterChange} onSearch={handleFilterChange} />
       <div className="tabs">
         <button className={activeTab === 'collection' ? 'active' : ''} onClick={() => handleTabChange('collection')}>
           Collection
