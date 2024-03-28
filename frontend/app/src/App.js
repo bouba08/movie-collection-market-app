@@ -4,6 +4,8 @@ import MovieDetail from './MovieDetail';
 import Collection from './Pages/Colletion';
 import Wishlist from './Pages/Wishlist'; // Import Wishlist component
 import './CSS/App.css';
+import Sidebar from './Sidebar';
+
 
 const App = () => {
   const [selectedMovie, setSelectedMovie] = useState(null);
