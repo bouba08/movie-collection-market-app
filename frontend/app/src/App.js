@@ -53,7 +53,7 @@ const App = () => {
       try {
         const apiKey = process.env.REACT_APP_OMDB_API_KEY;
         const response = await fetch(
-          `http://www.omdbapi.com/?s=${searchTerm}&apikey=${apiKey}&plot=full&type=movie`
+          `https://www.omdbapi.com/?s=${searchTerm}&apikey=${apiKey}&plot=full&type=movie`
         );
         const data = await response.json();
 
@@ -61,7 +61,7 @@ const App = () => {
           const detailedResults = await Promise.all(
             data.Search.map(async (movie) => {
               const detailResponse = await fetch(
-                `http://www.omdbapi.com/?i=${movie.imdbID}&apikey=4d5f158f&plot=full`
+                `https://www.omdbapi.com/?i=${movie.imdbID}&apikey=4d5f158f&plot=full`
               );
               const detailData = await detailResponse.json();
               return detailData;
