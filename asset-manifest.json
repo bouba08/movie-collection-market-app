@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/movie-collection-market-app/static/css/main.13fe7001.css",
-    "main.js": "/movie-collection-market-app/static/js/main.2fc9f378.js",
+    "main.js": "/movie-collection-market-app/static/js/main.012f9790.js",
     "index.html": "/movie-collection-market-app/index.html",
     "main.13fe7001.css.map": "/movie-collection-market-app/static/css/main.13fe7001.css.map",
-    "main.2fc9f378.js.map": "/movie-collection-market-app/static/js/main.2fc9f378.js.map"
+    "main.012f9790.js.map": "/movie-collection-market-app/static/js/main.012f9790.js.map"
   },
   "entrypoints": [
     "static/css/main.13fe7001.css",
-    "static/js/main.2fc9f378.js"
+    "static/js/main.012f9790.js"
   ]
 }
